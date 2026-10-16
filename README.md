@@ -12,6 +12,15 @@
 
 ## 更新说明
 
+**2026.10.17**
+
+**Python 3.11+ 兼容性修复**
+
+- 将已过时的 `@asyncio.coroutine` / `yield from` 协程写法迁移至 `async` / `await`，修复在 Python 3.11+ 下运行报 `AttributeError: module 'asyncio' has no attribute 'coroutine'` 的问题。
+- 修复现代客户端（如 PyMySQL，默认使用 utf8mb4，字符集编号 45）登录时因字符集枚举值不存在而崩溃的问题。
+- 已将 `asyncio.get_event_loop()` 等过时 API 替换为新写法。
+- 提示：如本机 3306 端口已被 MySQL 服务占用，请先停止该服务或修改 `server.py` 中的监听端口。
+
 **2021.06.01**
 
 儿童节快乐~

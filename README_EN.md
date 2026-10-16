@@ -10,6 +10,15 @@ Modified from Poject:https://github.com/waldiTM/python-mysqlproto
 
 ## Update Information
 
+**2026.10.17**
+
+Python 3.11+ compatibility fix
+
+- Migrated the deprecated `@asyncio.coroutine` / `yield from` coroutine syntax to `async` / `await`, fixing the `AttributeError: module 'asyncio' has no attribute 'coroutine'` error on Python 3.11+.
+- Fixed a login crash with modern clients (e.g. PyMySQL, which defaults to utf8mb4, character set ID 45) caused by the missing character set enum value.
+- Replaced deprecated asyncio APIs such as `asyncio.get_event_loop()`.
+- Note: if port 3306 on your machine is already occupied by a MySQL service, stop that service first or change the listening port in `server.py`.
+
 **2021.05.31**
 
 Happy Children's Day~

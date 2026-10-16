@@ -59,9 +59,8 @@ class HandshakeResponse41:
         self.capability = CapabilitySet()
 
     @classmethod
-    @asyncio.coroutine
-    def read(cls, packet, capability_announced):
-        data = yield from packet.read()
+    async def read(cls, packet, capability_announced):
+        data = await packet.read()
 
         ret = cls()
 
@@ -69,7 +68,10 @@ class HandshakeResponse41:
         ret.capability.int = d[0]
         ret.capability_effective = ret.capability & capability_announced
         ret.max_packet_size = d[1]
-        ret.character_set = CharacterSet(d[2])
+        try:
+            ret.character_set = CharacterSet(d[2])
+        except ValueError:
+            ret.character_set = d[2]
 
         if not Capability.PROTOCOL_41 in ret.capability:
             raise RuntimeError
